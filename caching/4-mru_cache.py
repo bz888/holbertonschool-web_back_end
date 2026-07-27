@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""LRU caching module."""
+"""MRU caching module."""
 
 from base_caching import BaseCaching
 
@@ -15,8 +15,8 @@ class Node:
         self.next = None
 
 
-class LRUCache(BaseCaching):
-    """Least-recently-used caching system with a storage limit."""
+class MRUCache(BaseCaching):
+    """Most-recently-used caching system with a storage limit."""
 
     def __init__(self):
         """Initialize the cache and its recency list."""
@@ -44,11 +44,11 @@ class LRUCache(BaseCaching):
         self._add(node)
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            lru_node = self.tail.prev
-            self._remove(lru_node)
-            del self.nodes[lru_node.key]
-            del self.cache_data[lru_node.key]
-            print("DISCARD: {}".format(lru_node.key))
+            mru_node = self.head.next
+            self._remove(mru_node)
+            del self.nodes[mru_node.key]
+            del self.cache_data[mru_node.key]
+            print("DISCARD: {}".format(mru_node.key))
 
     def get(self, key):
         """Return a value and mark its key as most recently used."""
