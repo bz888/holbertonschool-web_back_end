@@ -36,19 +36,21 @@ class MRUCache(BaseCaching):
             node = self.nodes[key]
             self._remove(node)
             node.value = item
-        else:
-            node = Node(key, item)
-            self.nodes[key] = node
+            self.cache_data[key] = item
+            self._add(node)
+            return
 
-        self.cache_data[key] = item
-        self._add(node)
-
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             mru_node = self.head.next
             self._remove(mru_node)
             del self.nodes[mru_node.key]
             del self.cache_data[mru_node.key]
             print("DISCARD: {}".format(mru_node.key))
+
+        node = Node(key, item)
+        self.nodes[key] = node
+        self.cache_data[key] = item
+        self._add(node)
 
     def get(self, key):
         """Return a value and mark its key as most recently used."""
