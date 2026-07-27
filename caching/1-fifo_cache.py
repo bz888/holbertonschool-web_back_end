@@ -3,6 +3,9 @@ from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
     """FIFO caching system with a storage limit."""
+    def __init__(self):
+        """Initialize the FIFO cache."""
+        super().__init__()
     
     def put(self, key, item):
         """Add an item to the cache when its key and value are not None.
