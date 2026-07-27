@@ -9,7 +9,7 @@ class FIFOCache(BaseCaching):
         """Add an item to the cache when its key and value are not None.
 		If the cache exceeds the maximum size, remove the first item added."""
         if key is not None and item is not None:
-            if len(self.cache_data) >self.MAX_ITEMS:
+            if len(self.cache_data) >= self.MAX_ITEMS:
                 first = next(iter(self.cache_data))
                 del self.cache_data[first]
             self.cache_data[key] = item
