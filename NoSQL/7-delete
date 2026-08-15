@@ -1,0 +1,2 @@
+// add new attribute to a doc in collection
+db.school.deleteMany({ name: "Holberton school" })
